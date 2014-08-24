@@ -39,6 +39,7 @@ public class IntroFrame extends JFrame implements ActionListener {
             introButtonStart.setVisible(false);
             introPanel.setVisible(false);
             addPicturePanel();
+            startRotator();
         }
     }
 
@@ -46,5 +47,12 @@ public class IntroFrame extends JFrame implements ActionListener {
         picturePanel = new PicturePanel();
         this.add(picturePanel);
         this.repaint();
+    }
+
+    private void startRotator() {
+        System.out.println("Starting thread...");   // BRISATI
+        Rotator rotator = new Rotator();
+        rotator.setPicturePanel(picturePanel);
+        new Thread(rotator).start();
     }
 }

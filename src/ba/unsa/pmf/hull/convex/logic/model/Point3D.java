@@ -6,63 +6,63 @@ import ba.unsa.pmf.hull.convex.components.PicturePanel;
  * Created by Adnan on 17.8.2014.
  */
 public class Point3D {
-    private Integer X;
-    private Integer Y;
-    private Integer Z;
+    private Double X;
+    private Double Y;
+    private Double Z;
 
     public Point3D() {
-        X = PicturePanel.POINT_SIZE / 2;
-        Y = PicturePanel.POINT_SIZE / 2;
-        Z = PicturePanel.POINT_SIZE / 2;
+        X = ((double) PicturePanel.POINT_SIZE) / 2;
+        Y = ((double) PicturePanel.POINT_SIZE) / 2;
+        Z = ((double) PicturePanel.POINT_SIZE) / 2;
     }
 
-    public Point3D(int x, int y, int z) {
+    public Point3D(double x, double y, double z) {
         if (x < 0) {
-            X = PicturePanel.POINT_SIZE / 2;
+            X = ((double) PicturePanel.POINT_SIZE) / 2;
         } else if (x > PicturePanel.PANEL_SIZE) {
-            X = PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE / 2;
+            X = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
             X = x;
         }
 
         if (y < 0) {
-            Y = PicturePanel.POINT_SIZE / 2;
+            Y = ((double) PicturePanel.POINT_SIZE) / 2;
         } else if (y > PicturePanel.PANEL_SIZE) {
-            Y = PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE / 2;
+            Y = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
             Y = y;
         }
 
         if (z < 0) {
-            Z = PicturePanel.POINT_SIZE / 2;
+            Z = ((double) PicturePanel.POINT_SIZE) / 2;
         } else if (z > PicturePanel.PANEL_SIZE) {
-            Z = PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE / 2;
+            Z = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
             Z = z;
         }
     }
 
-    public Integer getX() {
+    public Double getX() {
         return X;
     }
 
-    public void setX(Integer x) {
+    public void setX(Double x) {
         X = x;
     }
 
-    public Integer getY() {
+    public Double getY() {
         return Y;
     }
 
-    public void setY(Integer y) {
+    public void setY(Double y) {
         Y = y;
     }
 
-    public Integer getZ() {
+    public Double getZ() {
         return Z;
     }
 
-    public void setZ(Integer z) {
+    public void setZ(Double z) {
         Z = z;
     }
 
@@ -106,9 +106,9 @@ public class Point3D {
 
     @Override
     public int hashCode() {
-        int result = X;
-        result = result + Y * 1000;
-        result = result + Z * 1000000;
+        int result = X.intValue();
+        result = result + Y.intValue() * 1000;
+        result = result + Z.intValue() * 1000000;
         return result;
     }
 }

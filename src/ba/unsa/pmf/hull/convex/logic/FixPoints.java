@@ -12,7 +12,7 @@ public class FixPoints {
         ArrayList<Point3D> temp = new ArrayList<Point3D>(listOfPoints.size());
         Point3D tempPoint;
 
-        for (int i = 0; i < listOfPoints.size(); i++) {
+        for (int i = 1; i <= listOfPoints.size(); i++) {
             tempPoint = temp.get(i);
             temp.add(i, new Point3D(tempPoint.getX() + fixX, tempPoint.getY() + fixY, tempPoint.getZ() + fixZ));
         }
