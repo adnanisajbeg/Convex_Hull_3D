@@ -9,13 +9,10 @@ import java.util.ArrayList;
  * Created by Adnan on 23.8.2014.
  */
 public class RotatePoints {
-    public static ArrayList<Point3D> rotateByX(ArrayList<Point3D> points, int angle) {
-        ArrayList<Point3D> newPoints = new ArrayList<Point3D>(points);
-
-        return newPoints;
+    public static void rotateByX(ArrayList<Point3D> points, int angle) {
     }
 
-    public static ArrayList<Point3D> rotateByY(ArrayList<Point3D> points, int angle) {
+    public static void rotateByY(ArrayList<Point3D> points, int angle) {
         double sinAngle = Math.sin(angle * Math.PI / 180);
         double cosAngle = Math.cos(angle * Math.PI / 180);
 
@@ -26,23 +23,15 @@ public class RotatePoints {
             point.setRotatedX(x);
             point.setRotatedZ(z);
         }
-
-        return points;
     }
 
-    public static ArrayList<Point3D> rotateByZ(ArrayList<Point3D> points, int angle) {
-        ArrayList<Point3D> newPoints = new ArrayList<Point3D>(points);
-
-
-        return newPoints;
+    public static void rotateByZ(ArrayList<Point3D> points, int angle) {
     }
 
     public static void rotate(ArrayList<Point3D> points, int angleX, int angleY, int angleZ) {
-        rotateByX(rotateByY(rotateByZ(points, angleZ), angleY), angleX);
+        rotateByX(points, angleX);
+        rotateByY(points, angleY);
+        rotateByZ(points, angleZ);
         // TODO: implement formula for rotating around a default vector
-        /*ArrayList<Point3D> newPoints = new ArrayList<Point3D>(points.size());
-
-
-        return newPoints;*/
     }
 }
