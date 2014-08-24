@@ -50,7 +50,6 @@ public class IntroFrame extends JFrame implements ActionListener {
     }
 
     private void startRotator() {
-        System.out.println("Starting thread...");   // BRISATI
         Rotator rotator = new Rotator();
         rotator.setPicturePanel(picturePanel);
         new Thread(rotator).start();

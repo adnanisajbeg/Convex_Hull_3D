@@ -8,64 +8,103 @@ import java.util.Comparator;
  * Created by Adnan on 17.8.2014.
  */
 public class Point3D implements Comparable<Point3D> {
-    private Double X;
-    private Double Y;
-    private Double Z;
+    private Double originalX;
+    private Double originalY;
+    private Double originalZ;
+    private Double rotatedX;
+    private Double rotatedY;
+    private Double rotatedZ;
 
     public Point3D() {
-        X = ((double) PicturePanel.POINT_SIZE) / 2;
-        Y = ((double) PicturePanel.POINT_SIZE) / 2;
-        Z = ((double) PicturePanel.POINT_SIZE) / 2;
+        originalX = ((double) PicturePanel.POINT_SIZE) / 2;
+        originalY = ((double) PicturePanel.POINT_SIZE) / 2;
+        originalZ = ((double) PicturePanel.POINT_SIZE) / 2;
+        rotatedX = ((double) PicturePanel.POINT_SIZE) / 2;
+        rotatedY = ((double) PicturePanel.POINT_SIZE) / 2;
+        rotatedZ = ((double) PicturePanel.POINT_SIZE) / 2;
     }
 
     public Point3D(double x, double y, double z) {
         if (x < 0) {
-            X = ((double) PicturePanel.POINT_SIZE) / 2;
+            originalX = ((double) PicturePanel.POINT_SIZE) / 2;
+            rotatedX = ((double) PicturePanel.POINT_SIZE) / 2;
         } else if (x > PicturePanel.PANEL_SIZE) {
-            X = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
+            originalX = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
+            rotatedX = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
-            X = x;
+            originalX = x;
+            rotatedX = x;
         }
 
         if (y < 0) {
-            Y = ((double) PicturePanel.POINT_SIZE) / 2;
+            originalY = ((double) PicturePanel.POINT_SIZE) / 2;
+            rotatedY = ((double) PicturePanel.POINT_SIZE) / 2;
         } else if (y > PicturePanel.PANEL_SIZE) {
-            Y = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
+            originalY = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
+            rotatedY = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
-            Y = y;
+            originalY = y;
+            rotatedY = y;
         }
 
         if (z < 0) {
-            Z = ((double) PicturePanel.POINT_SIZE) / 2;
+            originalZ = ((double) PicturePanel.POINT_SIZE) / 2;
+            rotatedZ = ((double) PicturePanel.POINT_SIZE) / 2;
         } else if (z > PicturePanel.PANEL_SIZE) {
-            Z = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
+            originalZ = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
+            rotatedZ = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
-            Z = z;
+            originalZ = z;
+            rotatedZ = z;
         }
     }
 
-    public Double getX() {
-        return X;
+    public Double getOriginalX() {
+        return originalX;
     }
 
-    public void setX(Double x) {
-        X = x;
+    public void setOriginalX(Double x) {
+        originalX = x;
     }
 
-    public Double getY() {
-        return Y;
+    public Double getOriginalY() {
+        return originalY;
     }
 
-    public void setY(Double y) {
-        Y = y;
+    public void setOriginalY(Double y) {
+        originalY = y;
     }
 
-    public Double getZ() {
-        return Z;
+    public Double getOriginalZ() {
+        return originalZ;
     }
 
-    public void setZ(Double z) {
-        Z = z;
+    public void setOriginalZ(Double z) {
+        originalZ = z;
+    }
+
+    public Double getRotatedX() {
+        return rotatedX;
+    }
+
+    public void setRotatedX(Double rotatedX) {
+        this.rotatedX = rotatedX;
+    }
+
+    public Double getRotatedY() {
+        return rotatedY;
+    }
+
+    public void setRotatedY(Double rotatedY) {
+        this.rotatedY = rotatedY;
+    }
+
+    public Double getRotatedZ() {
+        return rotatedZ;
+    }
+
+    public void setRotatedZ(Double rotatedZ) {
+        this.rotatedZ = rotatedZ;
     }
 
     @Override
@@ -86,11 +125,11 @@ public class Point3D implements Comparable<Point3D> {
         if (!(A instanceof Point3D) || !(B instanceof Point3D)) return 0.0;
         if (A.isNull() || B.isNull()) return 0.0;
 
-        return Math.sqrt(Math.pow((A.getX() - B.getX()), 2) + Math.pow((A.getY() - B.getY()), 2) + Math.pow((A.getZ() - B.getZ()), 2));
+        return Math.sqrt(Math.pow((A.getOriginalX() - B.getOriginalX()), 2) + Math.pow((A.getOriginalY() - B.getOriginalY()), 2) + Math.pow((A.getOriginalZ() - B.getOriginalZ()), 2));
     }
 
     public boolean isNull() {
-        if (X == null || Y == null || Z == null) {
+        if (originalX == null || originalY == null || originalZ == null) {
             return true;
         }
 
@@ -100,23 +139,24 @@ public class Point3D implements Comparable<Point3D> {
     @Override
     public String toString() {
         return "Point3D[" +
-                "X=" + X +
-                ", Y=" + Y +
-                ", Z=" + Z +
+                "X=" + originalX +
+                ", Y=" + originalY +
+                ", Z=" + originalZ +
                 ']';
     }
 
     @Override
     public int hashCode() {
-        int result = X.intValue();
-        result = result + Y.intValue() * 1000;
-        result = result + Z.intValue() * 1000000;
+        int result = originalX.intValue();
+        result = result + originalY.intValue() * 1000;
+        result = result + originalZ.intValue() * 1000000;
         return result;
     }
 
     @Override
     public int compareTo(Point3D o) {
-        if (X < o.getX()) {
+        // FIXME: use compare from Double
+        if (originalX < o.getOriginalX()) {
             return -1;
         } else {
             return 1;
