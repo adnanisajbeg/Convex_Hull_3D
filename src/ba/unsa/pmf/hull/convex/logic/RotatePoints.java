@@ -28,16 +28,6 @@ public class RotatePoints {
         for (Point3D point : points) {
             Point3D newPoint = new Point3D();
 
-            System.out.println("point.getZ(): " + point.getZ());
-            System.out.println("sinAngle: " + sinAngle);
-            System.out.println("point.getX(): " + point.getX());
-            System.out.println("cosAngle: " + cosAngle);
-            System.out.println("point.getZ() * sinAngle : " + (point.getZ() * sinAngle));
-            System.out.println("point.getX()) * cosAngle: " + (point.getX() * cosAngle));
-            System.out.println("(point.getZ() * sinAngle + (point.getX()) * cosAngle: " + ((point.getZ() * sinAngle + (point.getX()) * cosAngle)));
-
-            System.out.println("new X = " + ((point.getZ() * sinAngle + (point.getX()) * cosAngle)));
-
             newPoint.setX(point.getZ() * sinAngle + point.getX() * cosAngle);
             newPoint.setZ(point.getZ() * cosAngle - point.getX() * sinAngle);
             newPoint.setY(point.getY());

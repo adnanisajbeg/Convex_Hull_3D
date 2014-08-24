@@ -69,10 +69,7 @@ public class PicturePanel extends JPanel implements ActionListener {
 
         g2d.setColor(Color.BLUE);
 
-
-        System.out.println("================");
         for (Point3D point : arrayOfFixedPositionsOfPoints) {
-            System.out.println(point.toString());
             drawPoint(g2d, point.getX().intValue(), point.getY().intValue());
         }
     }
@@ -88,7 +85,6 @@ public class PicturePanel extends JPanel implements ActionListener {
         if (e.getSource() == rotateButton) {
             // TEST
             arrayOfFixedPositionsOfPoints = RotatePoints.rotate(arrayOfFixedPositionsOfPoints, rotationSpeedX, rotationSpeedY, rotationSpeedZ);
-            System.out.println("rotation nr." + ++counterOfRotations);
             this.repaint();
             // END TEST
             /*arrayOfFixedPositionsOfPoints = RotatePoints.rotate(arrayOfFixedPositionsOfPoints, 0, rotationSpeedY, 0);

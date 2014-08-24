@@ -4,6 +4,7 @@ import ba.unsa.pmf.hull.convex.components.PicturePanel;
 import ba.unsa.pmf.hull.convex.logic.model.Point3D;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -34,6 +35,10 @@ public class GeneratePoints {
 
             listOfPoints.add(i, temp);
         }
+
+        Collections.sort(listOfPoints);
+
+        System.out.println(listOfPoints.toString());
 
         return listOfPoints;
     }

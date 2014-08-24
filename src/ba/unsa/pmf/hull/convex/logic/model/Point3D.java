@@ -2,10 +2,12 @@ package ba.unsa.pmf.hull.convex.logic.model;
 
 import ba.unsa.pmf.hull.convex.components.PicturePanel;
 
+import java.util.Comparator;
+
 /**
  * Created by Adnan on 17.8.2014.
  */
-public class Point3D {
+public class Point3D implements Comparable<Point3D> {
     private Double X;
     private Double Y;
     private Double Z;
@@ -110,5 +112,14 @@ public class Point3D {
         result = result + Y.intValue() * 1000;
         result = result + Z.intValue() * 1000000;
         return result;
+    }
+
+    @Override
+    public int compareTo(Point3D o) {
+        if (X < o.getX()) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }
