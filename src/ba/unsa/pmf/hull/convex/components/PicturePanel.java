@@ -5,6 +5,8 @@ import ba.unsa.pmf.hull.convex.logic.RotatePoints;
 import ba.unsa.pmf.hull.convex.logic.model.Point3D;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +21,6 @@ public class PicturePanel extends JPanel implements ActionListener {
     private Integer numberOfPoints = new Integer("10"); // DEFAULT FOR TESTING
     private static Graphics2D g2d;
     private ArrayList<Point3D> arrayOfPoints;
-    JButton rotateButton;
     private int counterOfRotations = 0;
 
     JTextField speedX;
@@ -55,11 +56,101 @@ public class PicturePanel extends JPanel implements ActionListener {
         this.setSize(PANEL_SIZE, PANEL_SIZE);
         numberOfPoints = new Integer("30");
 
+        speedX = new JTextField("0", 3);
+        speedY = new JTextField("0", 3);
+        speedZ = new JTextField("0", 3);
+
+        speedX.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                check();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                check();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                check();
+            }
+
+            public void check() {
+                String text = speedX.getText();
+
+                if (text == null || text.isEmpty()) {
+                    rotationSpeedX = 0;
+                } else {
+                    rotationSpeedX = getNumber(text, "X");
+                }
+            }
+        });
+
+        speedY.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                check();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                check();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                check();
+            }
+
+            public void check() {
+                String text = speedY.getText();
+
+                if (text == null || text.isEmpty()) {
+                    rotationSpeedY = 0;
+                } else {
+                    rotationSpeedY = getNumber(text, "Y");
+                }
+            }
+        });
+
+        speedZ.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                check();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                check();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                check();
+            }
+
+            public void check() {
+                String text = speedZ.getText();
+
+                if (text == null || text.isEmpty()) {
+                    rotationSpeedZ = 0;
+                } else {
+                    rotationSpeedZ = getNumber(text, "Z");
+                }
+            }
+        });
+
+
+        speedX.setVisible(true);
+        speedY.setVisible(true);
+        speedZ.setVisible(true);
+
         arrayOfPoints = GeneratePoints.generateList(numberOfPoints);
-        rotationSpeedX = 1;
-        rotateButton = new JButton("Rotate!");
-        rotateButton.addActionListener(this);
-        this.add(rotateButton);
+
+        this.add(speedX);
+        this.add(speedY);
+        this.add(speedZ);
     }
 
     public void paintComponent(Graphics g) {
@@ -81,8 +172,32 @@ public class PicturePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == rotateButton) {
+        /*if (e.getSource() == rotateButton) {
             doAction();
+        }*/
+    }
+
+    private Integer getNumber(String text, String whichOne) {
+        try {
+            Integer number = new Integer(text);
+
+            if (number.intValue() <= 0) {
+                return new Integer("0");
+            } else if (number.intValue() >= 5) {
+                return new Integer("5");
+            } else {
+                return number;
+            }
+        } catch(Exception e) {
+            // TODO: Write somewhere that it is not a number...
+        }
+
+        if (whichOne.equals("X")) {
+            return rotationSpeedX;
+        } else if (whichOne.equals("Y")) {
+            return rotationSpeedY;
+        } else {
+            return rotationSpeedZ;
         }
     }
 
