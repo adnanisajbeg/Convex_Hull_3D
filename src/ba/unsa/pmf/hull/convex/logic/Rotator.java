@@ -1,4 +1,4 @@
-package ba.unsa.pmf.hull.convex.main;
+package ba.unsa.pmf.hull.convex.logic;
 
 import ba.unsa.pmf.hull.convex.components.PicturePanel;
 

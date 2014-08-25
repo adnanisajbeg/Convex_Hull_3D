@@ -22,9 +22,13 @@ public class PicturePanel extends JPanel implements ActionListener {
     JButton rotateButton;
     private int counterOfRotations = 0;
 
-    private static int rotationSpeedX = 1;
-    private static int rotationSpeedY = 1;
-    private static int rotationSpeedZ = 1;
+    JTextField speedX;
+    JTextField speedY;
+    JTextField speedZ;
+
+    private static int rotationSpeedX = 0;
+    private static int rotationSpeedY = 0;
+    private static int rotationSpeedZ = 0;
 
     public static void setRotationSpeedX(int rotationSpeedX) {
         PicturePanel.rotationSpeedX = rotationSpeedX;
@@ -52,7 +56,7 @@ public class PicturePanel extends JPanel implements ActionListener {
         numberOfPoints = new Integer("30");
 
         arrayOfPoints = GeneratePoints.generateList(numberOfPoints);
-
+        rotationSpeedX = 1;
         rotateButton = new JButton("Rotate!");
         rotateButton.addActionListener(this);
         this.add(rotateButton);

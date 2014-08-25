@@ -1,21 +1,11 @@
-package ba.unsa.pmf.hull.convex.main;
+package ba.unsa.pmf.hull.convex.components;
 
 import ba.unsa.pmf.hull.convex.components.PicturePanel;
+import ba.unsa.pmf.hull.convex.logic.Rotator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.RenderableImage;
-import java.text.AttributedCharacterIterator;
-import java.util.Map;
 
 /**
  * Created by Adnan on 17.8.2014.

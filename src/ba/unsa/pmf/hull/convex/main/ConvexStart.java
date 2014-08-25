@@ -1,5 +1,7 @@
 package ba.unsa.pmf.hull.convex.main;
 
+import ba.unsa.pmf.hull.convex.components.IntroFrame;
+
 import javax.swing.*;
 
 /**
