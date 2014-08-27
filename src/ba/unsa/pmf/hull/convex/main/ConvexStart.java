@@ -11,7 +11,7 @@ public class ConvexStart {
     public static void main(String[] args) {
         IntroFrame introFrame = new IntroFrame();
         introFrame.setTitle("Convex Hull 3D");
-        introFrame.setSize(800, 600);
+        introFrame.setSize(600, 600);
         introFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         introFrame.setVisible(true);
     }

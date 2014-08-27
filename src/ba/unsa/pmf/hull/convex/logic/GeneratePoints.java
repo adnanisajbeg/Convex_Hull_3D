@@ -24,7 +24,7 @@ public class GeneratePoints {
 
         Point3D temp;
         for (int i = 0; i < numberOfPoints; i++) {
-            temp = new Point3D(rn.nextInt(PicturePanel.PANEL_SIZE), rn.nextInt(PicturePanel.PANEL_SIZE), rn.nextInt(PicturePanel.PANEL_SIZE));
+            temp = new Point3D(rn.nextInt(PicturePanel.PANEL_SIZE) - (PicturePanel.PANEL_SIZE / 2), rn.nextInt(PicturePanel.PANEL_SIZE) - (PicturePanel.PANEL_SIZE / 2), rn.nextInt(PicturePanel.PANEL_SIZE) - (PicturePanel.PANEL_SIZE / 2));
 
             for (int j = 0; j < i; j++) {
                 if (Point3D.distanceFromPoint(temp, listOfPoints.get(j)) < PicturePanel.POINT_SIZE) {

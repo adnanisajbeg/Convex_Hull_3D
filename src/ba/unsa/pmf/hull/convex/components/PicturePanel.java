@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class PicturePanel extends JPanel implements ActionListener {
     public static final Integer POINT_SIZE = new Integer("5");
-    public static final Integer PANEL_SIZE = new Integer("200");
+    public static final Integer PANEL_SIZE = new Integer("600");
     private Integer numberOfPoints = new Integer("10"); // DEFAULT FOR TESTING
     private static Graphics2D g2d;
     private ArrayList<Point3D> arrayOfPoints;
@@ -54,7 +54,7 @@ public class PicturePanel extends JPanel implements ActionListener {
     public PicturePanel() {
         this.setVisible(true);
         this.setSize(PANEL_SIZE, PANEL_SIZE);
-        numberOfPoints = new Integer("30");
+        numberOfPoints = new Integer("100");
 
         speedX = new JTextField("0", 3);
         speedY = new JTextField("0", 3);

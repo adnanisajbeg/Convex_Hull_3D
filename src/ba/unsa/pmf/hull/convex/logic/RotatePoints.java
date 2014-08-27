@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 public class RotatePoints {
     public static void rotateByX(ArrayList<Point3D> points, int angle) {
-        double sinAngle = Math.sin(angle * Math.PI / 180);
-        double cosAngle = Math.cos(angle * Math.PI / 180);
+        double sinAngle = Math.sin(angle * 0.2 * Math.PI / 180);
+        double cosAngle = Math.cos(angle * 0.2 * Math.PI / 180);
 
         for (Point3D point : points) {
             Double y = point.getRotatedY() * cosAngle - point.getRotatedZ() * sinAngle;
@@ -23,8 +23,8 @@ public class RotatePoints {
     }
 
     public static void rotateByY(ArrayList<Point3D> points, int angle) {
-        double sinAngle = Math.sin(angle * Math.PI / 180);
-        double cosAngle = Math.cos(angle * Math.PI / 180);
+        double sinAngle = Math.sin(angle * 0.2 * Math.PI / 180);
+        double cosAngle = Math.cos(angle * 0.2 * Math.PI / 180);
 
         for (Point3D point : points) {
             Double x = point.getRotatedZ() * sinAngle + point.getRotatedX() * cosAngle;
@@ -36,8 +36,8 @@ public class RotatePoints {
     }
 
     public static void rotateByZ(ArrayList<Point3D> points, int angle) {
-        double sinAngle = Math.sin(angle * Math.PI / 180);
-        double cosAngle = Math.cos(angle * Math.PI / 180);
+        double sinAngle = Math.sin(angle * 0.2 * Math.PI / 180);
+        double cosAngle = Math.cos(angle * 0.2 * Math.PI / 180);
 
         for (Point3D point : points) {
             Double x = point.getRotatedX() * cosAngle - point.getRotatedY() * sinAngle;

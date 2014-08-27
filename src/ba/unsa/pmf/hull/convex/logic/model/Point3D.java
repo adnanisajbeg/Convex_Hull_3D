@@ -25,10 +25,10 @@ public class Point3D implements Comparable<Point3D> {
     }
 
     public Point3D(double x, double y, double z) {
-        if (x < 0) {
-            originalX = ((double) PicturePanel.POINT_SIZE) / 2;
-            rotatedX = ((double) PicturePanel.POINT_SIZE) / 2;
-        } else if (x > PicturePanel.PANEL_SIZE) {
+        if (x < - (PicturePanel.PANEL_SIZE / 2)) {
+            originalX = - ((double) PicturePanel.POINT_SIZE) / 2;
+            rotatedX = - ((double) PicturePanel.POINT_SIZE) / 2;
+        } else if (x > (PicturePanel.PANEL_SIZE / 2)) {
             originalX = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
             rotatedX = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
@@ -36,10 +36,10 @@ public class Point3D implements Comparable<Point3D> {
             rotatedX = x;
         }
 
-        if (y < 0) {
+        if (y < - (PicturePanel.PANEL_SIZE / 2)) {
             originalY = ((double) PicturePanel.POINT_SIZE) / 2;
             rotatedY = ((double) PicturePanel.POINT_SIZE) / 2;
-        } else if (y > PicturePanel.PANEL_SIZE) {
+        } else if (y > (PicturePanel.PANEL_SIZE / 2)) {
             originalY = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
             rotatedY = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
@@ -47,10 +47,10 @@ public class Point3D implements Comparable<Point3D> {
             rotatedY = y;
         }
 
-        if (z < 0) {
+        if (z < - (PicturePanel.PANEL_SIZE / 2)) {
             originalZ = ((double) PicturePanel.POINT_SIZE) / 2;
             rotatedZ = ((double) PicturePanel.POINT_SIZE) / 2;
-        } else if (z > PicturePanel.PANEL_SIZE) {
+        } else if (z > (PicturePanel.PANEL_SIZE / 2)) {
             originalZ = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
             rotatedZ = ((double) PicturePanel.PANEL_SIZE - PicturePanel.POINT_SIZE) / 2;
         } else {
