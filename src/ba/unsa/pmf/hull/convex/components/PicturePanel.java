@@ -54,7 +54,7 @@ public class PicturePanel extends JPanel implements ActionListener {
     public PicturePanel() {
         this.setVisible(true);
         this.setSize(PANEL_SIZE, PANEL_SIZE);
-        numberOfPoints = new Integer("100");
+        numberOfPoints = new Integer("50");
 
         speedX = new JTextField("0", 3);
         speedY = new JTextField("0", 3);
