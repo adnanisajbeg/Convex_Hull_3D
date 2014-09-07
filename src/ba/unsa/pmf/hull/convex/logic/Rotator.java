@@ -18,7 +18,7 @@ public class Rotator implements Runnable {
             picturePanel.doAction();
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }

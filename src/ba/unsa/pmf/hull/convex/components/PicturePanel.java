@@ -12,7 +12,9 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Adnan on 17.8.2014.
@@ -23,9 +25,11 @@ public class PicturePanel extends JPanel implements ActionListener {
     private Integer numberOfPoints = new Integer("10"); // DEFAULT FOR TESTING
     private static Graphics2D g2d;
     private ArrayList<Point3D> arrayOfPoints;
-    private ArrayList<Triangle> arrayOfTriangles;
+    private List<Triangle> arrayOfTriangles;
     private int counterOfRotations = 0;
     private int positionOfLastPoint = 0;
+    private static int SPEED_OF_HULL_CREATION = 1;
+    private double willAddPointToHull = 0;
 
     JTextField speedX;
     JTextField speedY;
@@ -152,7 +156,7 @@ public class PicturePanel extends JPanel implements ActionListener {
 
         arrayOfPoints = GeneratePoints.generateList(numberOfPoints);
 
-        arrayOfTriangles = new ArrayList<Triangle>(numberOfPoints - 3); // TODO: find the max number of triangles
+        arrayOfTriangles = new CopyOnWriteArrayList<Triangle>(); // TODO: find the max number of triangles
 
         this.add(speedX);
         this.add(speedY);
@@ -194,7 +198,7 @@ public class PicturePanel extends JPanel implements ActionListener {
         g.drawPolygon(xPoints, yPoints, 3);
 
         g2d.setColor(Color.GREEN);
-        g.fillPolygon(xPoints, yPoints, 3);
+       // g.fillPolygon(xPoints, yPoints, 3);
     }
 
     @Override
@@ -230,12 +234,13 @@ public class PicturePanel extends JPanel implements ActionListener {
 
     public void doAction() {
         RotatePoints.rotate(arrayOfPoints, rotationSpeedX, rotationSpeedY, rotationSpeedZ);
+        willAddPointToHull += 0.05 * SPEED_OF_HULL_CREATION;
 
-        if (positionOfLastPoint == 0) {
+        if (positionOfLastPoint == 0 && ((int) willAddPointToHull != (int) (willAddPointToHull + 0.05 * SPEED_OF_HULL_CREATION))) {
             Triangle firstOne = new Triangle(arrayOfPoints.get(0), arrayOfPoints.get(1), arrayOfPoints.get(2));
             arrayOfTriangles.add(firstOne);
             positionOfLastPoint = 3;
-        } else if (positionOfLastPoint == 3){
+        } else if (positionOfLastPoint == 3 && ((int) willAddPointToHull != (int) (willAddPointToHull + 0.05 * SPEED_OF_HULL_CREATION))){
             positionOfLastPoint = 4;
             Triangle triangle = arrayOfTriangles.get(0);
             Point3D point = arrayOfPoints.get(positionOfLastPoint);
@@ -252,17 +257,19 @@ public class PicturePanel extends JPanel implements ActionListener {
             triangle.setTriangle23(triangle3);
             arrayOfTriangles.add(triangle3);
         }
-        else if (positionOfLastPoint < numberOfPoints - 1) {
+        else if ((positionOfLastPoint < numberOfPoints - 1) && ((int) willAddPointToHull != (int) (willAddPointToHull + 0.05 * SPEED_OF_HULL_CREATION))) {
             positionOfLastPoint++;
+
+            int numberOfTrianglesByNow = arrayOfTriangles.size();
 
             Point3D nextPoint = arrayOfPoints.get(positionOfLastPoint);
 
-            for (int i = 0; i < arrayOfTriangles.size(); i++) {
+            for (int i = 0; i < numberOfTrianglesByNow; i++) {
                 boolean valid = true;
                 Triangle triangle = arrayOfTriangles.get(i);
                 Point3D middle = triangle.getMiddle();
 
-                for (int j = 0; j < arrayOfTriangles.size(); j++) {
+                for (int j = 0; j < numberOfTrianglesByNow; j++) {
                     Triangle tempTriangle = arrayOfTriangles.get(j);
                         if (Intersection.checkIntersection(nextPoint, middle, tempTriangle)) {
                             valid = false;
@@ -271,7 +278,29 @@ public class PicturePanel extends JPanel implements ActionListener {
                 }
 
                 if (valid) {
-                    // TODO: create new triangle
+                    if (true) { // FIXME: should not intersect and it should intersect when checking triangle12
+                        Point3D point1 = triangle.getPoint1();
+                        Point3D point2 = triangle.getPoint2();
+
+                        Triangle newTriangle = new Triangle(point1, point2, nextPoint);
+                        arrayOfTriangles.add(newTriangle);
+                    }
+
+                    if (true) { // FIXME: should not intersect and it should intersect when checking triangle13
+                        Point3D point1 = triangle.getPoint1();
+                        Point3D point3 = triangle.getPoint3();
+
+                        Triangle newTriangle = new Triangle(point1, point3, nextPoint);
+                        arrayOfTriangles.add(newTriangle);
+                    }
+
+                    if (true) { // FIXME: should not intersect and it should intersect when checking triangle23
+                        Point3D point2 = triangle.getPoint2();
+                        Point3D point3 = triangle.getPoint3();
+
+                        Triangle newTriangle = new Triangle(point2, point3, nextPoint);
+                        arrayOfTriangles.add(newTriangle);
+                    }
                 }
             }
 
