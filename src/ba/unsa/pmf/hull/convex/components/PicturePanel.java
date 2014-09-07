@@ -3,6 +3,7 @@ package ba.unsa.pmf.hull.convex.components;
 import ba.unsa.pmf.hull.convex.logic.GeneratePoints;
 import ba.unsa.pmf.hull.convex.logic.RotatePoints;
 import ba.unsa.pmf.hull.convex.logic.model.Point3D;
+import ba.unsa.pmf.hull.convex.logic.model.Triangle;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -21,7 +22,9 @@ public class PicturePanel extends JPanel implements ActionListener {
     private Integer numberOfPoints = new Integer("10"); // DEFAULT FOR TESTING
     private static Graphics2D g2d;
     private ArrayList<Point3D> arrayOfPoints;
+    private ArrayList<Triangle> arrayOfTriangles;
     private int counterOfRotations = 0;
+    private int positionOfLastPoint = 0;
 
     JTextField speedX;
     JTextField speedY;
@@ -54,7 +57,9 @@ public class PicturePanel extends JPanel implements ActionListener {
     public PicturePanel() {
         this.setVisible(true);
         this.setSize(PANEL_SIZE, PANEL_SIZE);
-        numberOfPoints = new Integer("50");
+
+        numberOfPoints = IntroFrame.POINTS_NUMBER;
+        positionOfLastPoint = 3;
 
         speedX = new JTextField("0", 3);
         speedY = new JTextField("0", 3);
@@ -148,6 +153,11 @@ public class PicturePanel extends JPanel implements ActionListener {
 
         arrayOfPoints = GeneratePoints.generateList(numberOfPoints);
 
+        arrayOfTriangles = new ArrayList<Triangle>(numberOfPoints - 3); // TODO: find the max number of triangles
+
+        Triangle firstOne = new Triangle(arrayOfPoints.get(0), arrayOfPoints.get(1), arrayOfPoints.get(2));
+        arrayOfTriangles.add(firstOne);
+
         this.add(speedX);
         this.add(speedY);
         this.add(speedZ);
@@ -162,12 +172,33 @@ public class PicturePanel extends JPanel implements ActionListener {
         for (Point3D point : arrayOfPoints) {
             drawPoint(g2d, point.getRotatedX().intValue(), point.getRotatedY().intValue());
         }
+
+        g2d.setColor(Color.GREEN);
+
+        for (Triangle triangle : arrayOfTriangles) {
+            drawTriangle(g2d, triangle);
+        }
     }
 
     public static void drawPoint(Graphics2D g, int x, int y) {
         x = ((x / 2) + 250) - POINT_SIZE;
         y = ((y / 2) + 250) - POINT_SIZE;
         g.fillOval(x, y, POINT_SIZE , POINT_SIZE);
+    }
+
+    public static void drawTriangle(Graphics2D g, Triangle triangle) {
+        int[] xPoints = new int[3];
+        int[] yPoints = new int[3];
+        xPoints[0] = ((triangle.getPoint1().getRotatedX().intValue() / 2) + 250) - POINT_SIZE / 2;
+        xPoints[1] = ((triangle.getPoint2().getRotatedX().intValue() / 2) + 250) - POINT_SIZE / 2;
+        xPoints[2] = ((triangle.getPoint3().getRotatedX().intValue() / 2) + 250) - POINT_SIZE / 2;
+        yPoints[0] = ((triangle.getPoint1().getRotatedY().intValue() / 2) + 250) - POINT_SIZE / 2;
+        yPoints[1] = ((triangle.getPoint2().getRotatedY().intValue() / 2) + 250) - POINT_SIZE / 2;
+        yPoints[2] = ((triangle.getPoint3().getRotatedY().intValue() / 2) + 250) - POINT_SIZE / 2;
+
+        g.drawLine(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        g.drawPolygon(xPoints, yPoints, 3);
+        g.fillPolygon(xPoints, yPoints, 3);
     }
 
     @Override
@@ -203,6 +234,17 @@ public class PicturePanel extends JPanel implements ActionListener {
 
     public void doAction() {
         RotatePoints.rotate(arrayOfPoints, rotationSpeedX, rotationSpeedY, rotationSpeedZ);
+
+        if (positionOfLastPoint < numberOfPoints) {
+            positionOfLastPoint++;
+
+            Point3D nextPoint = arrayOfPoints.get(positionOfLastPoint);
+
+            // TODO: add triangle
+
+            // TODO: delete triangle insade
+        }
+
         this.repaint();
     }
 }

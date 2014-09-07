@@ -8,6 +8,12 @@ public class Triangle {
     Point3D point2;
     Point3D point3;
 
+    public Triangle(Point3D point1, Point3D point2, Point3D point3) {
+        this.point1 = point1;
+        this.point2 = point2;
+        this.point3 = point3;
+    }
+
     public Point3D getPoint1() {
         return point1;
     }
@@ -30,5 +36,14 @@ public class Triangle {
 
     public void setPoint3(Point3D point3) {
         this.point3 = point3;
+    }
+
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "point1=" + point1 +
+                ", point2=" + point2 +
+                ", point3=" + point3 +
+                '}';
     }
 }
