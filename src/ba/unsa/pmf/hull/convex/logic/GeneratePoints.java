@@ -38,8 +38,6 @@ public class GeneratePoints {
 
         Collections.sort(listOfPoints);
 
-        System.out.println(listOfPoints.toString());
-
         return listOfPoints;
     }
 }

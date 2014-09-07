@@ -85,10 +85,10 @@ public class IntroFrame extends JFrame implements ActionListener {
         try {
             Integer number = new Integer(text);
 
-            if (number <= 3) {
-                return new Integer("3");
+            if (number < 4) {
+                return new Integer("4");
             }
-            else if (number >= 100) {
+            else if (number > 100) {
                 return new Integer ("100");
             }
         } catch (Exception e) {

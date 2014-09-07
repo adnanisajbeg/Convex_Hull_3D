@@ -1,6 +1,7 @@
 package ba.unsa.pmf.hull.convex.components;
 
 import ba.unsa.pmf.hull.convex.logic.GeneratePoints;
+import ba.unsa.pmf.hull.convex.logic.Intersection;
 import ba.unsa.pmf.hull.convex.logic.RotatePoints;
 import ba.unsa.pmf.hull.convex.logic.model.Point3D;
 import ba.unsa.pmf.hull.convex.logic.model.Triangle;
@@ -57,9 +58,7 @@ public class PicturePanel extends JPanel implements ActionListener {
     public PicturePanel() {
         this.setVisible(true);
         this.setSize(PANEL_SIZE, PANEL_SIZE);
-
         numberOfPoints = IntroFrame.POINTS_NUMBER;
-        positionOfLastPoint = 3;
 
         speedX = new JTextField("0", 3);
         speedY = new JTextField("0", 3);
@@ -155,9 +154,6 @@ public class PicturePanel extends JPanel implements ActionListener {
 
         arrayOfTriangles = new ArrayList<Triangle>(numberOfPoints - 3); // TODO: find the max number of triangles
 
-        Triangle firstOne = new Triangle(arrayOfPoints.get(0), arrayOfPoints.get(1), arrayOfPoints.get(2));
-        arrayOfTriangles.add(firstOne);
-
         this.add(speedX);
         this.add(speedY);
         this.add(speedZ);
@@ -172,8 +168,6 @@ public class PicturePanel extends JPanel implements ActionListener {
         for (Point3D point : arrayOfPoints) {
             drawPoint(g2d, point.getRotatedX().intValue(), point.getRotatedY().intValue());
         }
-
-        g2d.setColor(Color.GREEN);
 
         for (Triangle triangle : arrayOfTriangles) {
             drawTriangle(g2d, triangle);
@@ -196,8 +190,10 @@ public class PicturePanel extends JPanel implements ActionListener {
         yPoints[1] = ((triangle.getPoint2().getRotatedY().intValue() / 2) + 250) - POINT_SIZE / 2;
         yPoints[2] = ((triangle.getPoint3().getRotatedY().intValue() / 2) + 250) - POINT_SIZE / 2;
 
-        g.drawLine(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        g2d.setColor(Color.BLACK);
         g.drawPolygon(xPoints, yPoints, 3);
+
+        g2d.setColor(Color.GREEN);
         g.fillPolygon(xPoints, yPoints, 3);
     }
 
@@ -235,12 +231,49 @@ public class PicturePanel extends JPanel implements ActionListener {
     public void doAction() {
         RotatePoints.rotate(arrayOfPoints, rotationSpeedX, rotationSpeedY, rotationSpeedZ);
 
-        if (positionOfLastPoint < numberOfPoints) {
+        if (positionOfLastPoint == 0) {
+            Triangle firstOne = new Triangle(arrayOfPoints.get(0), arrayOfPoints.get(1), arrayOfPoints.get(2));
+            arrayOfTriangles.add(firstOne);
+            positionOfLastPoint = 3;
+        } else if (positionOfLastPoint == 3){
+            positionOfLastPoint = 4;
+            Triangle triangle = arrayOfTriangles.get(0);
+            Point3D point = arrayOfPoints.get(positionOfLastPoint);
+
+            Triangle triangle1 = new Triangle(triangle.getPoint1(), triangle.getPoint2(), point);
+            triangle.setTriangle12(triangle1);
+            arrayOfTriangles.add(triangle1);
+
+            Triangle triangle2 = new Triangle(triangle.getPoint1(), triangle.getPoint3(), point);
+            triangle.setTriangle13(triangle2);
+            arrayOfTriangles.add(triangle2);
+
+            Triangle triangle3 = new Triangle(triangle.getPoint2(), triangle.getPoint3(), point);
+            triangle.setTriangle23(triangle3);
+            arrayOfTriangles.add(triangle3);
+        }
+        else if (positionOfLastPoint < numberOfPoints - 1) {
             positionOfLastPoint++;
 
             Point3D nextPoint = arrayOfPoints.get(positionOfLastPoint);
 
-            // TODO: add triangle
+            for (int i = 0; i < arrayOfTriangles.size(); i++) {
+                boolean valid = true;
+                Triangle triangle = arrayOfTriangles.get(i);
+                Point3D middle = triangle.getMiddle();
+
+                for (int j = 0; j < arrayOfTriangles.size(); j++) {
+                    Triangle tempTriangle = arrayOfTriangles.get(j);
+                        if (Intersection.checkIntersection(nextPoint, middle, tempTriangle)) {
+                            valid = false;
+                            break;
+                        }
+                }
+
+                if (valid) {
+                    // TODO: create new triangle
+                }
+            }
 
             // TODO: delete triangle insade
         }
